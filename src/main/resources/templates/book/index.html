@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en" xmlns:th="//www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/master}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/myStyle.css">
+    <title>Document</title>
+</head>
+<body>
+<!-- Main content -->
+<!--[[${books}]]-->
+
+<th:block layout:fragment="content">
+
+    <div class="container" style="padding-left: 40px">
+        <h1><div th:text="#{list_book}">List All Books</div></h1>
+        <a th:href="@{/create}"​​><img style="width: 70px; height: 70px" src="img/add_book.jpg"></a>
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th th:text="#{table.id}">ID</th>
+                <th th:text="#{table.title}">Title</th>
+                <th th:text="#{table.author}">Author</th>
+                <th th:text="#{table.publisher}">Publisher</th>
+                <th th:text="#{table.thumbnail}">Thumbnail</th>
+                <th th:text="#{table.action}">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book:${books}">
+                <td>[[${book.id}]]</td>
+                <td th:text="${book.getTitle()}"></td>
+                <td th:text="${book.getAuthor()}"></td>
+                <td th:text="${book.getPublisher()}"></td>
+                <td>
+                    <img style="width: 70px; heigth:100px" th:src="${book.getThumbnail()}">
+                </td>
+                <td>
+                    <a th:href="@{/view/{id}(id=${book.getId()})}"><button>View</button></a>
+                    <a th:href="@{/update/{id}(id=${book.getId()})}"><button>Update</button></a>
+                    <button class="btn-delete" th:attr="data-id=${book.getId()}" >Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+<!-- /.content -->
+</th:block>
+</body>
+</html>
